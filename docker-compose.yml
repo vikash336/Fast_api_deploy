@@ -1,0 +1,7 @@
+version: '1'
+services:
+  app:
+    image: fast-api
+    container_name: fast-api
+    build: /home/ctp/Documents/Fast_api_deploy
+    network_mode: "host"
