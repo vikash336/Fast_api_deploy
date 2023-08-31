@@ -5,6 +5,8 @@ from pydantic import BaseModel
 app = FastAPI()
 
 
+
+
 class fatch(BaseModel):
     name: str
 class UserCreate(BaseModel):
@@ -17,6 +19,7 @@ async def test():
 
 @app.post("/add_user")
 async def create_user(user: UserCreate, db = Depends(get_db)):
+    Base.metadata.create_all(bind=engine)
     db_user = User(
         name=user.name,
         phone=user.phone,
@@ -35,6 +38,5 @@ async def getuser(username: fatch , db= Depends(get_db)):
     return db_user
 
 if __name__ == "__main__":
-    Base.metadata.create_all(bind=engine)
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
